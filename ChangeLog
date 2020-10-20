@@ -1,0 +1,1021 @@
+2020-06-21 - ffx264 4.1.1
+	* Fixed a bug that prevents using TrueHD mono audio
+	  in the MP4 container
+
+2020-06-16 - ffx264 4.1.0
+	* Support TrueHD audio in the MP4 container
+
+2020-03-27 - ffx264 4.0.9
+	* Check for MPlayer only if AUTOCROP is enabled
+
+2020-03-23 - ffx264 4.0.8
+	* Add -max_muxing_queue_size switch to workaround
+	  possible issues when muxing Atmos/DTS-X audio
+
+2020-03-09 - ffx264 4.0.7
+	* Bugfix: missing if conditional in the crop code
+
+2020-03-05 - ffx264 4.0.6
+	* Go back to FFmpeg for crop detection
+
+2020-02-23 - ffx264 4.0.5
+	* Use MPlayer for crop detection instead of FFmpeg which
+	  seems to have issues with 4k/UHD content
+
+2019-12-28 - ffx264 4.0.4
+	* Add support for the noise video filter. Can be beneficial
+	  on (very) clean sources by applying some noise to avoid
+	  things like color/light banding in the encode
+	* Fine-tuning to the default encoding options
+
+2019-11-11 - ffx264 4.0.3
+	* Added support for the (newer) deblock filter
+
+2019-11-04 - ffx264 4.0.2
+	* Merged two case statements in the metadata code for mkv/mp4/mov
+	* Bugfix: Using ADPCM encoding for DTS audio wasn't possible due
+	  to wrong variable used in the if conditional
+
+2019-10-29 - ffx264 4.0.1
+	* Removed an unneeded check for audio codec in the conerror_func()
+	  function
+	* Removed a stale "" in the case statement that checks the channels
+	  for AC3
+	* Support setting the matrixed stereo type when resampling stereo
+	  input
+	* Support setting the filter type of the audio resample filter
+	* Cosmetics
+
+2019-10-28 - ffx264 4.0.0
+	* Added support for director/cast metadata for MP4/M4V/MOV
+	* Added +use_metadata_tags to the $movflags variable for MP4/M4V/MOV
+	* Support ADPCM encoding for DTS audio
+	* Fixed an issue where asking for director/cast occured multiple
+	  times if remuxing to other containers was enabled
+
+2019-10-27 - ffx264 3.9.9
+	* Use 16 bits as bit depth metadata when encoding to TrueHD audio
+	* Removed an unneeded if conditional in the audio bit depth code
+	* Add director and cast metadata for the MKV container
+	* Reorder some code for the output shell file
+	* Cosmetics
+
+2019-10-26 - ffx264 3.9.8
+	* Renamed audio variable aid[i] to aidx[i] and moved it outside
+	  of the if conditional that decides the audio codec. This
+	  removes the same code in three places and now uses the
+	  global aidx[i] variable
+	* HE-AACv2 only supports 2 channels. Update the audio code
+	  to reflect that
+	* When running in batch mode, add a warning about automatic
+	  audio metadata and offer an option to enable/disable it
+	* Added -tmp option to MP4Box to store temp files in the
+	  output directory
+	* Some minor improvements to the audio options
+
+2019-10-25 - ffx264 3.9.7
+	* Detect audio bit depth and add it to the audio metadata
+	* Added detection for DTS Express and DTS-HD HR for audio copy
+	* Use -show_entries instead of -show_streams for detecting
+	  audio properties with ffprobe. Removes piping to grep and awk
+	* Support setting the FLAC bit depth for encoding
+	* Minor restructuring and variables renaming in the audio code
+	* Updated the man page
+
+2019-10-23 - ffx264 3.9.6
+	* Added support for setting the VBV maxrate and buffer size
+	* Set default audio codec based on output container format
+	* Add colr option for MP4Box to the video_colorspace_func()
+	  function and the color primaries code. Only used for MOV
+	* Add -color_primaries, -color_trc and -colorspace to the
+	  FFmpeg command line options
+
+2019-10-22 - ffx264 3.9.5
+	* Add support for SRT/SSA/AAS subtitles for the MOV container
+	* Add color characteristics to MP4Box if output is MOV
+	* Use smpte170m for option 0 in the color primaries code
+	* Update colormatrix in the video_colorspace_func() function
+	  to smpte170m for NTSC
+	* Some code optimizations
+
+2019-10-21 - ffx264 3.9.4
+	* Renamed variables $MDATA and $CHPS to $METADATA
+	  and $CHAPS
+	* Add $METADATA and $CHAPS to the remuxing code
+
+2019-10-21 - ffx264 3.9.3
+	* Add support for verbose logging to a log file
+	* Bugfix: -map_metadata and -map_chapters where not set
+	  to 0 when the respective options in the config file
+	  were set to "y"
+
+2019-10-20 - ffx264 3.9.2
+	* Added support for embedding of SRT/SSA/ASS subtitles
+	  in the MP4/M4V containers
+	* Moved back to MP4Box for adding cover art to MP4/M4V/MOV.
+	  Apparently, after lots of testing, atomicparsley
+	  creates files that hang during playback
+	* Cosmetics
+	* Updated the man page
+
+2019-10-19- ffx264 3.9.1
+	* Use atomicparsley to add cover art for the mp4/m4v
+	  containers. This removes dependence on MP4Box and
+	  makes it possible to copy over metadata info in
+	  an easy way
+	* Add +frag_keyframe to the -movflags option when
+	  output is mp4
+	* Renamed variable METACOVER to MKVCOVER
+	* Updated the man page
+
+2019-10-18 - ffx264 3.9.0
+	* Bugfix: use correct video track for crop
+	  preview with MPlayer
+	* Bugfix: in the video_field_parity_func() 
+	  function. $vidtrack was missing for ffprobe
+	* Bugfix: missing ;; in the additional container
+	  formats code
+	* Renamed variable SCAN_MULTIPLE_VID_TRACKS to
+	  SCAN_MULTI_VID_TRACKS
+	* Some reordering in the config file
+	* Set Catmull-Rom as default Bicubic/Spline tuning
+	* Add LPCM detection for audio copy
+	* Add support for cover art for the mp4, m4v and mov
+	  containers. Requires MP4Box from GPAC
+	* Some code optimization
+
+2019-10-17 - ffx264 3.8.9
+	* Support the WMV container format
+
+2019-10-16 - ffx264 3.8.8
+	* Support the fftdnoiz denoise filter
+
+2019-10-15 - ffx264 3.8.7
+	* Bugfix: use correct video mapping for crop detection
+
+2019-10-14 - ffx264 3.8.6
+	* Support scanning for multiple video tracks
+	  in the input file
+	  
+2019-10-13 - ffx264 3.8.5
+	* Fixed a typo in the keyframes code
+	* Use readlink -e and realpath -e where needed
+	
+2019-10-11 - ffx264 3.8.4
+	* Support hardcoding external or embedded subtitles.
+	  Requires libass support in FFmpeg
+	* Fixed a typo in the subtitles code
+
+2019-09-25 - ffx264 3.8.3
+	* Revert using audindex[i] var for audio metadata
+	  detection
+
+2019-09-25 - ffx264 3.8.2
+	* Use the audindex[i] variable for audio metadata
+	  during audio copy
+	* Updated default audio bitrates for some codecs
+
+2019-09-22 - ffx264 3.8.1
+	* For audio stream copy, in case ffprobe reports
+	  channels layout as unknown, try to guess the
+	  amount of channels based on channel detection
+	  and use that as metadata
+	* Set Mobius transform as default for HDR to SDR
+	* Updated the man page
+
+2019-09-21 - ffx264 3.8.0
+	* Add side channel info to the audio metadata
+
+2019-09-19 - ffx264 3.7.9
+	* Support encoding to WMAv1 and WMAv2 audio
+	* Update high bit depth pixel formats options
+	* Add WMAv1 and WMAv2 audio detection metadata
+	  when doing audio copy
+
+2019-09-18 - ffx264 3.7.8
+	* Improvements to the audio copy metadata
+
+2019-09-13 - ffx264 3.7.7
+	* Add audio channel metadata when using audio copy
+
+2019-09-05 - ffx264 3.7.6
+	* Code optimization in the audio sample rate metadata
+	
+2019-08-29 - ffx264 3.7.5
+	* Use a comma instead of a dash for the audio sample
+	  rate metadata
+
+2019-08-21 - ffx264 3.7.4
+	* Add audio sample rate to the audio metadata
+
+2019-08-01 - ffx264 3.7.3
+	* Switch to using -x264-params instead of -x264opts.
+	  The latter will be eventually removed from FFmpeg
+
+2019-07-23 - ffx264 3.7.2
+	* Added support for crop preview using MPlayer when
+	  autocrop is enabled in the config file. This was
+	  ported over from my h264enc script
+
+2019-06-13 - ffx264 3.7.1
+	* Added support for the bm3d denoise filter
+
+2018-07-10 - ffx264 3.7.0
+	* Revert previous change. Linear transfer is already set
+	  in the $tonemap variable
+
+2018-07-09 - ffx264 3.6.9
+	* HDR to SDR: transfer to linear light before doing bt2020-10/12
+	  transfer
+
+2018-04-15 - ffx264 3.6.8
+	* Support setting the chroma location parameter
+	
+2018-03-20 - ffx264 3.6.7
+	* Improvements to the HDR to SDR conversion code, copy color
+	  characteristics option
+	* A few typo fixes
+	
+2018-02-24 - ffx264 3.6.6
+	* Set the eq saturation default value to 1.0 (same as filter default)
+	* Add the colorspace and colormatrix filters when doing an HDR
+	  to SDR conversion
+	* Lower tonemap desat strength to 2.8
+	* Support white point adaptation for HDR to SDR
+	* Moved the colorspace filter after the scale one
+	* Moved the pixel format filter near the end of the filter chain
+	
+2018-02-17 - ffx264 3.6.5
+	* Fixed an issue where in some cases write-testing the output
+	  directory will fail due usage of readlink -f instead of
+	  readlink -m
+	  
+2018-02-07 - ffx264 3.6.4
+	* Update transfer chars to support latest changes to zimg from git
+	
+2018-01-08 - ffx264 3.6.3
+	* Fixed a possible devision by 0 that may occur when one copies
+	  audio and the bitrate for metadata is reported as N/A by ffprobe
+	  
+2018-01-06 - ffx264 3.6.2
+	* Moved the eq filter to almost the end of the video filter chain
+	  as it can lead to banding in certain cases in case the filter
+	  is in front of most other ones
+	* If the eq filter is used, also insert the format one after it
+	  if a pixel format has been chosen
+	
+2018-01-04 - ffx264 3.6.1
+	* Support tweaking the tonemap algorithms for HDR to SDR conversion
+	* Increased default desat tonemap value from 2.3 to 4.2
+	* Support applying color saturation correction when doing an HDR
+	  to SDR conversion
+	* Added bt2020-12 to the list of transfers when doing color
+	  characteristics copy
+	* Updated the HDR_to_SDR_instructions.txt file
+	
+2018-01-03 - ffx264 3.6.0
+	* Don't hardcode the desaturation strength of the tonemap filter
+	  but let is be an option
+	* Removed the matrix and primaries options in the zscale filter
+	  as it leads to over-saturation of colors
+	  
+2018-01-02 - ffx264 3.5.9
+	* Disabled audio metadata for batch mode when using audio copy,
+	  until I figure out how to do it in a decent way
+	* Removed default software scaler parameters for bicubic/spline
+	  They are already the default in FFmpeg so no need to force
+	  them
+	* Use a case statement instead of if condition in option 0 of
+	  the video_hdr_to_sdr_func() function
+	  
+2018-01-01 - ffx264 3.5.8
+	* Set proper zscale transfer value in the video_hdr_to_sdr_func()
+	  function, option 0 (copy color characteristics)
+	* Use a desat value of 2.5 for the tonemap filter when doing HDR
+	  to SDR conversions
+	* Don't use pix_fmts in the format filter. It is not really needed
+	* Removed 12-bit options from the video_pixfmt_func() function
+	* Cosmetics
+
+2018-01-01 - ffx264 3.5.7
+	* Reworked the video_chars_func() function and added reporting
+	  of video bit depth
+	* Initial support for audio codec metadata when doing audio
+	  copy
+	* Increased default E-AC-3 audio bitrate from 768 to 960 kbps
+	* Set dialnorm for AC-3/E-AC-3 to its FFmpeg default (-31)
+	* Added HDR_to_SDR_instructions.txt file to the package
+	* Cosmetics
+	
+2017-12-27 - ffx264 3.5.6
+	* Renamed array variable CHARS to VCHARS in the
+	  video_chars_func() function
+	* Report pixel format in the video_chars_func() function
+	* Removed strange copy-paste word in the colrospace
+	  conversion code
+	* Use -v quiet instead of -v error log level for ffprobe
+	* Cosmetics
+	  
+2017-12-25 - ffx264 3.5.5
+	* Initial support for HDR to SDR conversions. Requires
+	  FFmpeg to be compiled with the zimg library as it
+	  needs the zscale filter
+	  https://github.com/sekrit-twc/zimg
+	  
+2017-10-22 - ffx264 3.5.4
+	* Support dialog level normalization for AC3/EAC3 audio
+	
+2017-09-29 - ffx264 3.5.3
+	* Support setting the output video aspect ratio
+	
+2017-08-23 - ffx264 3.5.2
+	* Support full chroma input for the software scaler
+	
+2017-07-20 - ffx264 3.5.1
+	* Bugfix: use realpath instead of readlink for the OUTPUT
+	  var when running in batch mode. Fixes the issue where
+	  readlink will follow the full path in case the input
+	  is a symlink which may result of encoding files we
+	  were not asked to
+	* Don't print cropped resolution during runtime
+	  if batch mode is selected
+	* Remove check for realpath. It is now required and not
+	  optional
+	  
+2017-07-11 - ffx264 3.5.0
+	* Support setting the min/max keyframe/IDR intervals
+
+2017-06-14 - ffx264 3.4.9
+	* Make software scaler tweaking optional
+	* Added support for the unsharp filter for sharpen/blur
+	* Use a colon symbol as separation for input/output color range
+	  in the video_colorspace_func() function as to be consistent
+	  with the other options. Also set the default to tv:tv
+	
+2017-06-13 - ffx264 3.4.8
+	* Bugfix in the video_colorspace_func() function. Wrong value
+	  used for the ispace option of the filter. Must be bt2020ncl
+	  instead of just bt2020
+	  
+2017-06-10 - ffx264 3.4.7
+	* Replace numbers in array variable char of the video_chars_func()
+	  function with the ones from the for loop
+	* Pipe the ffprobe string to tail -1 to work around issues
+	  with some problematic files
+	* Some small improvements to the video_colorspace_func() function
+	  
+2017-06-09 - ffx264 3.4.6
+	* New function, video_chars_func(), to detect and display video
+	  characteristics like color range/space/transfer/primaries
+	* Detect and display video resolution if video scaling is enabled
+	* Detect and display pixel format
+	
+2017-06-08 - ffx264 3.4.5
+	* Report software scaler set in the config file
+	* Merge the bicubic and spline scaler tuning code
+	* Mention for the Lanczos scaler that the scaler
+	  tuning value is the filter length and not sharpness
+
+2017-06-05 - ffx264 3.4.4
+	* Remove redundant software scaler warning and exit in
+	  the sws_func() function for the config file
+	* Added support for the experimental software scaler
+	* Added support for software scaler tuning where applicable
+	* Removed additional encoder info on max audio channels support
+	
+2017-06-04 - ffx264 3.4.3
+	* Match software scaler options in config file with the
+	  ones inside the script. $SCALER in config file now
+	  takes a value between 0 and 9
+	* Do some basic checking of scaler option when it's set
+	  in the config file
+	  
+2017-06-01 - ffx264 3.4.2
+	* Simplify the scale variable a bit
+	* Support SMPTE170M colorspace conversion
+	* Support SMPTE170M for color primaries/matrices/transfers
+	
+2017-05-16 - ffx264 3.4.1
+	* Added support for FFmpeg's internal Opus audio encoder
+	
+2017-05-14 - ffx264 3.4.0
+	* Bugfix in the software scale code. Use an if conditional
+	  to check for an y/n answer
+	  
+2017-05-13 - ffx264 3.3.9
+	* Support accurate rounding for the software scalers
+	* Support full chroma interpolation for the software scalers
+	* Use the flags option of the scale option instead of -sws_flags
+	  to set scaler and its options
+	  
+2017-04-03 - ffx264 3.3.8
+	* Support setting the input/output color range
+	
+2017-03-28 - ffx264 3.3.7
+	* Update audio compression level values
+	* Update colorspace entry for NTSC video
+	* Fixed bug in the video_colorspace_func() values
+	
+2017-02-22 - ffx264 3.3.6
+	* Support high FPS -> low FPS conversions
+	* Bugfix: missing options in FPS conversion menu
+	
+2017-02-06 - ffx264 3.3.5
+	* Support the framestep filter for FPS conversion
+	* Support halving the frame rate. Only supported for
+	  50/59.940/60 FPS input
+	  
+2017-01-25 - ffx264 3.3.4
+	* Small improvement: add "Track $i:" to the question for
+	  audio channel layout
+	  
+2017-01-24 - ffx264 3.3.3
+	* Removed one of the OUTPUT variables for batch mode. It is
+	  no longer needed
+	* Rewrote the audio channel layout code. It is now based on
+	  per-codec encoder support
+	* Repositioned the audio channel checking code
+	  
+2017-01-20 - ffx264 3.3.2
+	* Fixed a small issue in the output code for batch mode
+	
+2017-01-18 - ffx264 3.3.1
+	* Check channel amount for the libfdk_aac encoder and warn and
+	  exit on 7 channels as it doesn't support it
+	* Use range=tv instead of range=mpeg for the color conversion
+	  filter
+	* Bugfix: return value of variable autocrop wasn't checked
+	  when running in batch mode resulting in always cropping
+	  the input files
+	* Bugfix in the $OUTPUT variable when running in batch mode
+	* Removed readlink from the batch mode variables as it's no
+	  longer needed
+	  
+2017-01-15 - ffx264 3.3.0
+	* Support ALAC audio encoding
+	* Some small improvements to the audio code
+	* A few variable renamings, mostly in the case statements
+
+2017-01-13 - ffx264 3.2.9
+	* Support 50 <-> 60/59.940 FPS conversions
+	* Use upper-case words for the color primaries/transfers/matrices
+	  and pixel formats
+	* Support 4.0 audio channel layout in addition to Quad
+	
+2017-01-12 - ffx264 3.2.8
+	* Added support for pixel format conversion
+	* Added support for colorspace conversion
+	
+2017-01-09 - ffx264 3.2.7
+	* Fix a possible issue when detecting the FPS value that occurs
+	  with some files
+	* Expand directory path internally instead of exporting the
+	  dirname command to the file that gets sourced for encoding
+	* Use 'bc' for calculating the detected FPS value
+	* Only use fractions internally for FPS values. The user should
+	  be presented with the floating point value
+	  
+2017-01-08 - ffx264 3.2.6
+	* Support SMPTE-2084 transfer characteristics
+	* Placed the video post-processing filters in their own sub-menu
+	* Some small changes to the FPS conversion code
+	
+2017-01-06 - ffx264 3.2.5
+	* Bugfix: default output directory wasn't made when running
+	  in batch mode
+	* Display found per-file crop values when running in batch mode
+	
+2017-01-05 - ffx264 3.2.4
+	* Support per-file auto-cropping when running in batch mode
+	* Use internally full paths for input and output
+	* Add a test case for output directory to the script that gets
+	  sourced for encoding
+	
+2017-01-04 - ffx264 3.2.3
+	* Use readlink to get the full path to the cover art image. Fixes
+	  an issue when running in batch mode
+	
+2016-12-02 - ffx264 3.2.2
+	* Merged the output code for the batch mode with that for single
+	  file input
+	* Fixed an issue where remuxing to MP4 may fail in case the user
+	  chooses FLAC audio
+	* Renamed variable $extracon to $remuxcon and $econ to $rcon
+	* Made strict option "global" so I won't have to worry about
+	  adding experimental audio codecs support in the future
+	* Clean ups to the FPS conversion menu
+	  
+2016-11-23 - ffx264 3.2.1
+	* Added support for FLAC audio in MP4. Requires a very recent
+	  ffmpeg version
+	* Added the $strict variable to the remuxing code
+	* Use the improved way of gathering info for the audio sample
+	  rate detection
+	* Added the ability to flag the first internal or external
+	  subtitle as default, when using the option for internal and
+	  external subtitle copying
+	* Added support for LD-AAC audio encoding with libfdk-aac
+	* Removed stderr to stdout redirection (2>&1) for some of the
+	  ffprobe lines. It is no longer needed
+	  
+2016-11-20 - ffx264 3.2.0
+	* Moved checks for supported containers into its own function,
+	  check_container_func()
+	* Improvements to gathering information about the input file.
+	  Saves us piping to sed and in some cases piping to awk and tail
+	* Removed the NOSOUND option since the user can specify 0 for
+	  amount of audio tracks which equals to encoding with the NOSOUND
+	  option
+	* Placed both subcopy and subcpy variables into a single subparams
+	  variable. This also removes the NOSUBS variable
+	* Placed the video length detection code into its own function,
+	  video_length_func(), as it is used in two places so we can
+	  save writing the same stuff twice
+	* Instead of skipping bitrate calc for target file size in case
+	  we can't detect the video length, ask the user to provide it
+	* Removed install script and added a Makefile for installation
+	* Added new INSTALL file with install/uninstall instructions
+	
+2016-11-18 - ffx264 3.1.9
+	* Use process number instead of .old when renaming existing files
+	* Added support for detelecining (IVTC). Bumps up config file
+	  version to 29
+	* Minor improvements to the cropping code
+	
+2016-11-16 - ffx264 3.1.8
+	* Added support for 3-pass encoding
+	* Added support for setting a default audio codec in the config
+	  file. Bumps up config file version to 28
+	* Moved setting the video bitrate before the video filters
+	* More variables renamings and other small code tweaks
+	* Do some checking on duplicate entries when using additional
+	  containers and warn and exit
+	* Updated the man page
+	
+2016-11-14 - ffx264 3.1.7
+	* Set default amount of subtitles to 1 instead of exiting when no
+	  value is given
+	* Allow the user to choose the amount of audio tracks he wants at
+	  run time instead of requiring it to be set in the config file.
+	  This removes config file var MAX_AUD_TRACKS and bumps up version
+	  to 27
+	* Renamed array variables audmapval and submapval to audindex and
+	  subindex since we're not mapping but specifying the audio/sub
+	  index id with these vars
+	* Fixed a possible case where audio params weren't cleared in
+	  case the nosound option was chosen
+	* A few other small tweaks
+	  
+2016-11-13 - ffx264 3.1.6
+	* Added support for batch encoding mode, to be activated with the
+	  new -b option. It's used to encode directories with video files
+	* Renamed variable $mode to $encmode for clarity
+	* Reworked the input/output code
+	* Instead of relying on a config var to set the subtitles amount
+	  to support, ask the user each time to provide it. Makes the
+	  code less complex and easier to extend in the future. Bumps up
+	  config file version to 26
+	* Check if the X264PARAMS var is missing from config in case we're
+	  not using an x264 preset
+	* Updated the man page
+	
+2016-11-12 - ffx264 3.1.5
+	* Added support for importing external srt/ssa subtitles for the
+	  mkv, m2ts, mts and ts containers
+	* Moved the subtitle code into its own video_subtitles_func()
+	  function
+	* Added support for simultaneously copying subtitles from the
+	  input file and copying external ones
+	* Renamed variable SUBT to SUBNR for clarity
+	* Updated the README file and man page
+	
+2016-11-10 - ffx264 3.1.4
+	* Check if name of input file matches that of output file and warn
+	  and exit. Requires the realpath utility
+	* Added support for the m2ts, mts, ts and flv containers
+	* Merged the code that checks if an audio codec is supported by a
+	  container with that that checks for additional output containers.
+	  Removes code duplication and maintainability
+	* Update to the audio sample rates. Sync them with ffmpeg -h encoder=<encoder>
+	* Restrict TrueHD channels to 2, 5 and 6 as that's what the encoder
+	  currently supports
+	* Updated the README file
+	  
+2016-11-09 - ffx264 3.1.3
+	* Renamed config var CON to CONFMT. Updates config file version to 25
+	* Reduced some duplication in the audio codec checks for the container
+	  formats
+	* Reduced some error message duplication when checking if an additional
+	  container supports an audio codec
+	* Rework to the additional container selection code
+	* Added color functions for the additional container conversion
+	
+2016-11-08 - ffx264 3.1.2
+	* Added support for encoding to TrueHD audio. Requires a very recent
+	  ffmpeg version, preferably latest from git
+	* Some small improvements to the additional container output
+	* Moved the video_deinterlace_func() function inside the actual
+	  deinterlace code
+	* Update to the README file
+	* Update to the man page
+	  
+2016-11-07 - ffx264 3.1.1
+	* Cosmetics in the code for deinterlacing
+	* Instead of skipping FPS conversion if the FPS can't be detected,
+	  ask the user to provide it
+	* Use single brackets instead of double ones in the nosound
+	  setup code
+	* Added license snippet at the top of the script
+	* Added support for outputting to additional container formats
+	* Do some checking on supported audio codecs for the supported
+	  containers
+	* Check specified container and warn and exit if it's not supported
+	* Support setting the FLAC compression level
+	* Added h264_mp4toannexb flag in case we're outputting to the AVI
+	  container
+	* Break out of the if conditionals in the audio code and replace
+	  them with two case statements
+	* Update to the README file
+	  
+2016-11-06 - ffx264 3.1.0
+	* Bugfix: resampling wasn't working for fdk-aac due to missing
+	  value in the case statement
+	* Check if output file exists and if so, move it to $file.old
+	* Use test directly instead of an if condition to set the audio
+	  filters
+	* Support bitrate calculations for target file size when doing
+	  audio copy
+	* Use fdk* in the case statements for easier typing
+	* Renamed variable astrm to astream for clarity
+	* Use [1-2]p in the case statements for passmodes instead of 1p|2p
+	* New function, video_field_parity_func(), to detect and report the
+	  interlace field order. Used by motion-compensation deinterlacing
+	  and interlaced encoding
+	* Detect and display audio sample rate in case resampling is chosen
+	* Improvements to the video_fps_func() function. Get the FPS value
+	  directly instead of outputting to a file and reading it
+	  
+2016-11-05 - ffx264 3.0.9
+	* Use a single var, $ofps, to set the output FPS for both deinterlace
+	  bobbing and FPS conversion
+	* Use new $bob var to indicate that we do bobbing and use that
+	  var to disable FPS conversion
+	* Renamed $fp var in video_deinterlace_func() to $fpar
+	* Print a warning message that FPS conversion gets disabled if
+	  the user chooses audio copy
+	* Added support for the FDK-AAC audio codec. Requires ffmpeg
+	  to be compiled with libfdk-aac support
+	* Support FPS conversion with the 'fps' filter
+	* Some minor code optimizations
+	  
+2016-11-04 - ffx264 3.0.8
+	* Bugfix: the scale variable was used twice for different things
+	  causing an overwrite of the scale filter parameters, which
+	  eventually results in ffmpeg complaining and exiting
+	* Added support for NTSC <-> NTSC and NTSC <-> PAL frame rate
+	  conversions
+	* New var in config file, VID_FPS_CONVERT, to enable/disable
+	  FPS conversion. Bumps up config file version to 24
+	* Moved the FPS detection code into its own function so it can
+	  be easily reused
+	* Minor cosmetics
+	* Updated the README file
+	  
+2016-11-03 - ffx264 3.0.7
+	* Added support for interlace-aware encoding
+	* Added support for the spp, uspp and pp7 deblockers
+	* Support asking for software scaler during exec time
+	* Added new SCALE var to the config file to enable/disable
+	  support for software scaling. Bumps up the config file
+	  version to 23
+	* Do a test write to see if output directory is writable
+	  by the script executing user
+	* Updated the README file
+	
+2016-11-02 - ffx264 3.0.6
+	* Added support for motion compensation deinterlacing for both
+	  deinterlacing at original FPS and bobbing
+	* Use denoise var instead of denoiser for the denoise filters
+	  and rotate var instead of transpose for the transpose filter
+	* Added support for deblocking with the fspp filter. This bumps
+	  up the config file version to 22
+	* Update to the README file
+	
+2016-11-01 - ffx264 3.0.5
+	* Added support for bobbing (deinterlace at double FPS)
+	* Cosmetics: add menu header to the Color Primaries option
+	
+2016-10-11 - ffx264 3.0.4
+	* Fix video rotation for 180°. Don't use transpose=0 and transpose=3
+	  as they cancel each others out
+	  
+2016-10-06 - ffx264 3.0.3
+	* Audio channel layout 6.1(back) -> 6.1 and 7.1(wide-side) -> 7.1
+	* Cosmetics: add rotate filter menu banner
+	* Support 180° video rotating
+	
+2016-10-02 - ffx264 3.0.2
+	* Allow volume setting when normalize is used
+	* Cosmetics: add header title to the sample rate options
+	* Bump up default video bitrate for 1/2-pass mode and
+	  AAC/Opus/Vorbis bitrates
+	* Simplify atadenoise options
+	
+2016-09-28 - ffx264 3.0.1
+	* Added support for the atadenoise video filter
+	
+2016-09-18 - ffx264 3.0.0
+	* Add undefined option to the color primaries and make it default
+	* Support asking for crop values if autocrop is disabled
+	* Made most audio/video filters optional by allowing to enable
+	  or disable a filter in the config file
+	* Use menu tables for the audio sample rates
+	* Force threads to auto
+	* Cosmetics
+	
+2016-09-14 - ffx264 2.9.9
+	* Removed stray, unneeded MPLAYERPARAMS from config file
+	* Don't set by default a color prim/matrix in the x264 options
+	  in the config file
+	* Added support for rotating with the transpose filter
+	* Support setting the color primaries/matrix/transfer
+	  
+2016-09-09 - ffx264 2.9.8
+	* Adaptive channel range and defaults based on audio codec
+	* Made metadata comment optional, allow to modify it and
+	  place it in the config file
+	* Some minor tweaks
+	
+2016-09-06 - ffx264 2.9.7
+	* Added support for the new vaguedenoiser filter. Requires
+	  latest ffmpeg from git
+	* Merged the mp3 audio code with the rest
+	* Auto-add a metadata comment
+	* Updated the README file
+	
+2016-09-06 - ffx264 2.9.6
+	* Replaced some simple if conditionals with test cases
+	* Don't encode audio during first pass of 2-pass mode
+	* Bugfix: fix audio copy
+	* Target file size calc does not work with FLAC, PCM or Copy
+	  so just skip it
+	* Reduced ffmpeg command line options duplication in the
+	  encoder_func() function
+	
+2016-09-05 - ffx264 2.9.5
+	* Improved crop detection
+	* Removed dependence on MPlayer
+	* Added support for encoding to PCM audio
+	* Use ffprobe directly instead of outputting to files
+	* Updated the man page and README file
+	
+2016-09-02 - ffx264 2.9.4
+	* Added support for multipass encoding, to be activated with the
+	  new -m option
+	* Added support for calculation of video bitrate for target file
+	  size when using bitrate-based encoding
+	* Replaced some simple if conditionals with test cases
+	* Updated the man page and README file
+	
+2016-09-02 - ffx264 2.9.3
+	* Renamed config variable MAX_AUD_TRKS to MAX_AUD_TRACKS
+	* Removed -strict -2 option for AAC audio. It is no longer
+	  needed since about mid 2015
+	
+2016-08-23 - ffx264 2.9.2
+	* Merged the AC3/EAC3 channel check
+	* Bumped up EAC3 default bitrate to 768 kbps
+	* Use none instead of metadata flag for disposition for
+	  subsequent subs/audio tracks
+	
+2016-08-20 - ffx264 2.9.1
+	* NOSOUND audio option takes precedence so clear any other audio
+	  options given
+	* Workaround an ffmpeg disposition issue where in some cases it
+	  sets the default flag on all subsequent subs/audio tracks
+	* Bumped up default AAC bitrate
+	* Move the MOOV atom for MP4 files to the beginning of the file,
+	  for streaming-friendly files
+	* Enforce lower-case for container extension
+	* Added install script to the package
+	
+2016-08-20 - ffx264 2.9.0
+	* Added support for E-AC-3 audio encoding
+	* Add title metadata to the video stream
+	
+2016-08-19 - ffx264 2.8.9
+	* Increased the frames value for the crop detection code
+	* Added ogv to list of containers not supporting DTS
+	* Cosmetics
+	
+2016-08-18 - ffx264 2.8.8
+	* Support asking for CRF value if it isn't set in the config file
+	* Support custom config files with using the x264 presets/tune profiles
+	* Minor code updates
+	* Updated the man page
+	
+2016-08-18 - ffx264 2.8.7
+	* Added an EDITOR variable to the config file so the user can set
+	  his preferred editor for the -e option
+	* Added -r option to reset the config file to its defaults
+	* Cosmetics in the help info code
+	* Added man page
+	
+2016-08-17 - ffx264 2.8.6
+	* Added support for custom preset files (loaded with the new -c option)
+	* Added an example custom preset file to the package
+	* Added support for editing the config file with the vi text editor,
+	  using the new -e option of ffx264
+	* Updated the README file
+	
+2016-08-16 - ffx264 2.8.5
+	* Switched to using getopts for parsing the options
+	* Added support for using x264 tune profiles
+	
+2016-08-16 - ffx264 2.8.4
+	* Check the value of the astrm variable. This allows to properly
+	  remove any audio options in case no audio is detected
+	* Only display the audio codecs menu when audio has been detected
+	  or the user explicitly sets the track ID
+	
+2016-08-12 - ffx264 2.8.3
+	* Set the first video/subtitle/audio track as default
+	
+2016-07-03 - ffx264 2.8.2
+	* Placed the supported audio codecs in a menu
+	* Updated the audio codecs default bitrates
+	
+2016-06-30 - ffx264 2.8.1
+	* Added support for the built-in x264 presets
+	* Added a -h|--help option
+	* Updated the README file
+	
+2016-06-15 - ffx264 2.8.0
+	* Added the MOV container to the list of containers that don't
+	  support DTS audio
+	* Made the audio volume filter optional
+	  
+2016-06-09 - ffx264 2.7.9
+	* Warn and exit if user provides an unsupported image format
+	  for cover art
+	* Added support for nosound option to disable audio encoding
+	* Updated the README file
+	  
+2016-06-07 - ffx264 2.7.8
+	* Added support for cover art for the MKV container
+	
+2016-05-30 - ffx264 2.7.7
+	* Support asking for container format if the CON variable is not set
+	  in the config file
+	* Warn and exit if user chooses MP4/M4V container and DTS audio
+	* Some minor code improvements
+	
+2016-05-27 - ffx264 2.7.6
+	* Don't rm config file upon update. Just move it to .ffx264.old
+	* Add audio bitrate metadata
+	
+2016-05-21 - ffx264 2.7.5
+	* Add audio channel metadata
+	
+2016-05-16 - ffx264 2.7.4
+	* Only use side channels for DTS encoder which doesn't support anything else
+	
+2016-03-29 - ffx264 2.7.3
+	* Support setting MPlayer opts in the config file
+	
+2015-12-19 - ffx264 2.7.2
+	* Added support for audio normalization using the Dynamic Audio
+	  Normalizer filter
+	  
+2015-12-18 - ffx264 2.7.1
+	* Add back using dB for the volume filter
+	
+2015-11-21 - ffx264 2.7.0
+	* Don't use dB for the volume filter
+	
+2015-11-03 - ffx264 2.6.9
+	* Made audio resampling optional
+	
+2015-11-03 - ffx264 2.6.8
+	* Use a single var to set the audio filters, in preparation
+	 for possible future extensions
+	 
+2015-11-02 - ffx264 2.6.7
+	* Use -filter:a:id aresample instead of -ar:a:id
+	
+2015-10-31 - ffx264 2.6.6
+	* Added support for audio resampling
+	
+2015-10-04 - ffx264 2.6.5
+	* Removed a test condition in the mp3 code that is not really needed
+	* Cosmetics in the audio code
+	* Added a counter
+	
+2015-09-19 - ffx264 2.6.4
+	* Added support for encoding to MP3, Vorbis, FLAC and Opus audio
+	* Do some sanity checks for AC3/DTS channels
+	* Updated the README file
+	
+2015-09-18 - ffx264 2.6.3
+	* Removed the workaround for DTS audio since we always use
+	  "5.1(side)" for 6 channels output
+	* Support setting the MAX_AUD_TRKS and MAX_SUBS variables in
+	  the config file to "auto". When set to "auto", it will
+	  ask for as many as detected audio tracks/subtitles
+	  
+2015-09-17 - ffx264 2.6.2
+	* Small update the the channel layout mappings
+	
+2015-09-15 - ffx264 2.6.1
+	* Added support for deinterlacing
+	* Updated the README file
+	
+2015-09-14 - ffx264 2.6.0
+	* Fixed an issue where -vf was added despite not using any filters
+	
+2015-09-13 - ffx264 2.5
+	* Added support for scaling
+	* Updated the README file
+	
+2015-09-12 - ffx264 2.4
+	* Added audio channel layout mappings
+	
+2015-09-11 - ffx264 2.3
+	* Update to the default libx264 encoding params
+	
+2015-09-10 - ffx264 2.2
+	* Tweaks to the audio code
+	* Somehow I removed the chapters option. Add it back
+	
+2015-09-09 - ffx264 2.1
+	* Removed the $ in the index of array variables
+	* Use an if conditional instead of case to check for DTS audio
+	  and to check which audio codec has been selected
+	* Support setting the paths to mplayer/ffmpeg/ffprobe in the
+	  config file
+	* Support setting the language metadata for subs copy
+	* Fixed a small issue in the subtitles code
+	
+2015-09-08 - ffx264 2.0
+	* Enabled subs copy for other containers than mkv
+	* Some tweaks in the audio code
+	* Updated the README file
+	
+2015-09-07 - ffx264 1.9
+	* Bugfix: the specified channels to decode wasn't honored due to missing
+	  'a' in the -ac option
+	* Added support for encoding to DTS audio
+	* Reduced some duplication in the audio code
+	* More cosmetics
+	* Updated the README file
+	  
+2015-09-06 - ffx264 1.8
+	* Added support for setting the genre and year metadata
+	* Added support for virtually an unlimited amount of subtitles copy
+	* Colorized the banner
+	* Cosmetics
+	* Updated the README file
+	
+2015-09-06 - ffx264 1.7
+	* Bugfix: dB was missing after the value of the audio volume filter
+	* Be a bit more consistent with the audio variables
+	* Added support for encoding to AAC audio
+	* Use eval instead of seq for the for audio loops as seq is Linux-specific
+	* Added an ASCII art banner
+	* Export encoding params to a shell script and source it for encoding
+	* Place the libx264 params in the config file for easy modifications
+	* Made auto-cropping optional. It can be disabled in the config file
+	* Made the SUBS var in the config file consistent with the ones that
+	  accept "y" or "n" as value
+	* Added support for specifying the audio language metadata
+	* Automatically add the title of the content based on provided output name
+	* Automatically add the audio codec name metadata
+	* Updated the README file
+	
+2015-09-05 - ffx264 1.6
+	* Implemented support for virtually an unlimited audio track encodings
+	* Ask for AC-3 bitrate instead of setting it in the config file
+	* Updated the README file
+	
+2015-09-05 - ffx264 1.5
+	* Added support for copying a single subtitle. Note that this is only
+	  supported when output container is set to MKV
+	* Changed var OUTPUT in the config file to OUTDIR. Also changed internal
+	  var OUT to OUTPUT
+	* Updated the README file
+	
+2015-09-04 - ffx264 1.4
+	* Added a -v option to print the version
+	* Check for paths when user provides the output name
+	* Added a README file
+	
+2015-09-04 - ffx264 1.3
+	* Simplify metadata/chapters options in the config file
+	* Put config file location into a single var
+	
+2015-09-03 - ffx264 1.2
+	* Evaluate if user enters ac3 as audio codec
+	* Introduced a config file in $HOME/.ffx264
+	
+2015-09-02 - ffx264 1.1
+	* Initial public release

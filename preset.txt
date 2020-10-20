@@ -1,0 +1,6 @@
+# Example of a custom preset file for ffx264
+# Can be loaded with: ffx264 -c /path/to/this/file/preset.txt
+
+CRF="18"
+
+X264PARAMS="force-cfr=1:bframes=6:keyint=240:min-keyint=24:ref=4:trellis=2:merange=32:direct-pred=auto:chroma-me=1:mbtree=1:me=umh:subme=10:b-adapt=2:aq-mode=1:aq-strength=1.07:psy=1:psy-rd=1.07,0.15:rc-lookahead=80:weightb=1:weightp=2:mixed-refs=1:b-pyramid=normal:fast-pskip=0:deblock=-1,-1:8x8dct=1:cabac=1:partitions=p8x8,b8x8,i8x8,i4x4:colorprim=bt709:transfer=bt709:colormatrix=bt709:threads=auto"
